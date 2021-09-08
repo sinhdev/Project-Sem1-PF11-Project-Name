@@ -9,5 +9,7 @@ namespace Persistance
         public string UserPassword {set;get;}
         public string UserName {set;get;}
         public string UserAddress {set;get;}
+        public int Role {set;get;}
+        public bool IsActive {set;get;}
     }
 }

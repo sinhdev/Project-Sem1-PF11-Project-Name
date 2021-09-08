@@ -1,5 +1,6 @@
 ﻿using System;
 using LoginBl;
+using Persistance;
 
 namespace LoginConsoleApp
 {
@@ -13,8 +14,18 @@ namespace LoginConsoleApp
             Console.Write("Password: ");
             string password = GetPassword();
             Console.WriteLine();
-            if(bl.Login(userName, password)){
+            User user = bl.Login(userName, password);
+            if(user!=null){
                 Console.WriteLine("Login successfully!");
+                switch (user.Role)
+                {
+                    case 1:
+                        Console.WriteLine("Role 1");
+                        break;
+                    default:
+                        Console.WriteLine("default user");
+                        break;
+                }
             }else {
                 Console.WriteLine("Login fail!");
             }

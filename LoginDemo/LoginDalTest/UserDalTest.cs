@@ -1,21 +1,33 @@
 using System;
 using Xunit;
 using LoginDal;
+using Persistance;
 
 namespace LoginDalTest
 {
     public class UserDalTest
     {
+        private UserDal uDal = new UserDal();
         [Fact]
         public void LoginTest1()
         {
-            UserDal dal = new UserDal();
             string userName = "pf11";
-            string password = "pf11VTCAcademy";
-            
-            int expected = UserDal.ACCOUNT_EXIST;
-            int result = dal.Login(userName, password);
-            Assert.True(expected == result, "Login successfuly!");
+            string userPass = "pf11VTCAcademy";
+            User result = uDal.Login(userName, userPass);
+            Assert.True(result != null);
+            Assert.True(result.UserAccount.Equals(userName));
+            Assert.True(result.Role == 1);
+        }
+
+        [Theory]
+        [InlineData("pf111", "pf11VTCAcademy")]
+        [InlineData("pf11", "pf11VTCAcademy1")]
+        [InlineData("asdfg", "pf11VTCAcademy")]
+        [InlineData("pf11", "sdfgsdhfb")]
+        public void LoginTest2(string userName, string userPass)
+        {
+            User result = uDal.Login(userName, userPass);
+            Assert.True(result == null);
         }
     }
 }
