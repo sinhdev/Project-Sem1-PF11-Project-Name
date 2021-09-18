@@ -15,7 +15,6 @@ namespace LoginDal
         private MySqlConnection connection = DbHelper.GetConnection();
         public User Login(string userName, string password){
             User user = null;
-            lock(connection){
             try{
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
@@ -36,7 +35,6 @@ namespace LoginDal
                 connection.Close();
             }catch(Exception ex){
                 Console.WriteLine(ex);
-            }
             }
             return user;
         }
